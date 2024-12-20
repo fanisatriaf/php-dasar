@@ -32,6 +32,7 @@ while ($row = $result->fetch_assoc()) {
                     <th>NIM</th>
                     <th>Nama</th>
                     <th>Program Studi</th>
+                    <th>Aksi</th> <!-- Kolom Aksi ditambahkan di sini -->
                 </tr>
             </thead>
             <tbody>
@@ -41,6 +42,10 @@ while ($row = $result->fetch_assoc()) {
                         <td><?= $value['nim']; ?></td>
                         <td><?= $value['nama']; ?></td>
                         <td><?= $value['name'] === null ? 'NULL' : $value['name']; ?></td>
+                        <td>
+                            <a href="edit_mahasiswa.php?nim=<?= $value['nim'] ?>" class="btn btn-success">Edit</a>
+                            <a href="hapus_mahasiswa.php?nim=<?= $value['nim'] ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin akan Menghapus Data ini?')";>Hapus</a>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
