@@ -1,4 +1,5 @@
 <?php
+session_start();
 $mysqli = new mysqli('localhost', 'root', '', 'tedc');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -10,7 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param('sis', $nama, $program_studi, $nim);
 
     if ($stmt->execute()) {
-        echo "<script>alert; window.location.href='mahasiswa.php';</script>";
+        $_SESSION['success'] = true;
+        $_SESSION['message'] = 'Data Berhasil Diupdate!';
+        echo "<script>window.location.href='mahasiswa.php';</script>";
     } else {
         echo "<script>alert" . $stmt->error . "');</script>";
     }

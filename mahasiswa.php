@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $mysqli = new mysqli('localhost', 'root', '', 'tedc');
 
 $result = $mysqli->query("SELECT students.nim, students.nama, study_programs.name 
@@ -15,7 +17,7 @@ while ($row = $result->fetch_assoc()) {
 
 <!DOCTYPE html>
 <html>
-<head>
+<head>  
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Daftar Mahasiswa</title>
@@ -24,7 +26,16 @@ while ($row = $result->fetch_assoc()) {
 <body>
     <div class="container mt-4">
         <h2 class="mb-3 text-center">Daftar Mahasiswa Politeknik TEDC Bandung</h2>
+        
+         <?php if (isset($_SESSION['success']) && $_SESSION['success'] == true ) { ?>
+       <div class="alert alert-success" role="alert">
+            <?= $_SESSION['message'] ?>
+       </div>
+       <?php } ?>
+        <div class="mb-3">
         <a href="tambah_mahasiswa.php" class="btn btn-primary mb-3">Tambah Mahasiswa</a>
+        </div>
+
         <table class="table table-striped table-bordered">
             <thead class="table-dark">
                 <tr>
@@ -54,3 +65,7 @@ while ($row = $result->fetch_assoc()) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<?php
+session_unset();
+?>
