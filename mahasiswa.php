@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['login'])) {
+        if ($_SESSION['login'] != true) {
+            header("Location: login.php");
+            exit;
+        }
+    }
+
 $mysqli = new mysqli('localhost', 'root', '', 'tedc');
 
 $result = $mysqli->query("SELECT students.nim, students.nama, study_programs.name 
@@ -34,6 +41,7 @@ while ($row = $result->fetch_assoc()) {
        <?php } ?>
         <div class="mb-3">
         <a href="tambah_mahasiswa.php" class="btn btn-primary mb-3">Tambah Mahasiswa</a>
+        <a href="logout.php" style="color: white;" class="btn btn-warning mb-3">Logout</a>
         </div>
 
         <table class="table table-striped table-bordered">
@@ -67,5 +75,7 @@ while ($row = $result->fetch_assoc()) {
 </html>
 
 <?php
-session_unset();
+unset($_SESSION['success']);
+unset($_SESSION['message']);
+
 ?>
